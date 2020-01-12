@@ -8,7 +8,7 @@ with open(os.path.join(HERE, "README.md")) as fid:
 
 setup(
     name="toms",
-    version="0.1.0",
+    version="0.2.0",
     description="Convert date to milliseconds and back",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -19,6 +19,8 @@ setup(
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
     ],
     packages=["toms"],
