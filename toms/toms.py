@@ -3,21 +3,30 @@
 
 import re
 import dateutil.parser
-from datetime import datetime, timezone
+from datetime import datetime
+from dateutil import tz
+from calendar import timegm
 
 
-def _add_default_tz(x, tzinfo):
-    return x.replace(tzinfo=x.tzinfo or tzinfo)
+def iso_to_millis(s):
+    date = dateutil.parser.isoparse(s)
+    return str(date_to_millis(date))
+
+
+def date_to_millis(d):
+    return str(int((timegm(d.timetuple()) + d.microsecond / 1000000.0) * 1000))
+
+
+def millis_to_iso(millis):
+    dt = datetime.utcfromtimestamp(int(millis) / 1000) \
+        .replace(microsecond=int(millis[-3:]) * 1000) \
+        .replace(tzinfo=tz.tzutc())
+    return dt.isoformat()
 
 
 def convert_toms_str(s):
-    digits_only = re.compile(r"\d+")
-    if digits_only.fullmatch(s):
-        dt = datetime.utcfromtimestamp(int(s) / 1000) \
-            .replace(microsecond=int(s[-3:]) * 1000) \
-            .replace(tzinfo=timezone.utc)
-        return dt.isoformat()
+    digits_only = re.compile(r"(?:\d+$)")
+    if digits_only.match(s):
+        return millis_to_iso(s)
     else:
-        date = dateutil.parser.isoparse(s)
-        date = _add_default_tz(date, timezone.utc)
-        return str(int(date.timestamp() * 1000.0))
+        return iso_to_millis(s)

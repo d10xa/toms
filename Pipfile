@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 check-manifest = "*"
 tox = "*"
+tox-pyenv = "*"
 
 [packages]
 toms = {editable = true,path = "."}
