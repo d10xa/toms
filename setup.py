@@ -25,6 +25,8 @@ setup(
     ],
     packages=["toms"],
     include_package_data=True,
-    install_requires=["python-dateutil>=2.7.1"],
+    install_requires=[
+        "python-dateutil>=2.7.1"
+    ],
     entry_points={"console_scripts": ["toms=toms.__main__:main"]},
 )

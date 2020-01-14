@@ -1,5 +1,5 @@
 import sys
-from .toms import convert_toms_str
+from toms import convert_toms_str
 
 
 def main():
