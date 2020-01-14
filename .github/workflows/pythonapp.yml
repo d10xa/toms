@@ -18,12 +18,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements-dev.txt
-    - name: Install pyenv
+    - name: Install other python versions
       run: |
         curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
         export PATH="$HOME/.pyenv/bin:$PATH"
-    - name: Install other python versions
-      run: |
         pyenv install --skip-existing 3.6.10            
         pyenv install --skip-existing 3.7.6
         pyenv install --skip-existing 3.8.1
