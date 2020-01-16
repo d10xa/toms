@@ -38,7 +38,7 @@ def millis_to_iso(s):
     return make_iso(minus_sign, sec, ms)
 
 
-def make_iso(sign: bool, seconds: int, millis: int):
+def make_iso(sign: int, seconds: int, millis: int):
     delta = timedelta(milliseconds=millis * sign)
     dt = datetime.utcfromtimestamp(seconds * sign)
     dt = dt + delta
