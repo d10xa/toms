@@ -1,6 +1,9 @@
 import os.path
+import re
 from setuptools import setup
-from toms import __version__
+
+(__version__, ) = re.findall("__version__.*\s*=\s*[']([^']+)[']",
+                             open('toms/__init__.py').read())
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
