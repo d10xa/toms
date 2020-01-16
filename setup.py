@@ -1,5 +1,6 @@
 import os.path
 from setuptools import setup
+from toms import __version__
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -8,7 +9,7 @@ with open(os.path.join(HERE, "README.md")) as fid:
 
 setup(
     name="toms",
-    version="0.3.0",
+    version=__version__,
     description="Convert date to milliseconds and back",
     long_description=README,
     long_description_content_type="text/markdown",
