@@ -6,27 +6,21 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        python-version: [ '3.6.10', '3.7.6', '3.8.1' ]
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python 3.7
       uses: actions/setup-python@v1
       with:
-        python-version: 3.7
+        python-version: ${{ matrix.python-version }}
+        architecture: x64
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
-    - name: Install other python versions
-      run: |
-        curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-        export PATH="$HOME/.pyenv/bin:$PATH"
-        pyenv install --skip-existing 3.6.10            
-        pyenv install --skip-existing 3.7.6
-        pyenv install --skip-existing 3.8.1
-        pyenv local 3.6.10 3.7.6 3.8.1
-
+        python -m pip install pytest
+        python -m pip install -r requirements.txt
 #     - name: Lint with flake8
 #       run: |
 #         pip install flake8
@@ -34,6 +28,6 @@ jobs:
 #         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 #         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
 #         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with tox
+    - name: Test python:${{ matrix.python-version }} with pytest
       run: |
-        tox
+        python -m pytest
