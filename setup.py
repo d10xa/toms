@@ -1,5 +1,9 @@
 import os.path
+import re
 from setuptools import setup
+
+(__version__, ) = re.findall("__version__.*\s*=\s*[']([^']+)[']",
+                             open('toms/__init__.py').read())
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -8,7 +12,7 @@ with open(os.path.join(HERE, "README.md")) as fid:
 
 setup(
     name="toms",
-    version="0.2.0",
+    version=__version__,
     description="Convert date to milliseconds and back",
     long_description=README,
     long_description_content_type="text/markdown",

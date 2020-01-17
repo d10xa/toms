@@ -25,3 +25,11 @@ def test_timezone_minus():
 def test_negative_timestamp():
     assert convert_toms_str('1960-01-01T04:00:00-03:00') == '-315594000000'
     assert convert_toms_str('-315594000000') == '1960-01-01T07:00:00+00:00'
+    assert convert_toms_str('1969-12-31T23:59:58.001+00:00') == '-1999'
+    assert convert_toms_str('1969-12-31T23:59:58.555+00:00') == '-1445'
+    assert convert_toms_str('-1445') == '1969-12-31T23:59:58.555000+00:00'
+
+
+def test_minus_small_millis():
+    assert convert_toms_str('1969-12-31T23:59:59.999+00:00') == '-1'
+    assert convert_toms_str('-1') == '1969-12-31T23:59:59.999000+00:00'
