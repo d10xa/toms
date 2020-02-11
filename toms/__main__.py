@@ -6,15 +6,13 @@ from toms import convert_toms_str
 
 def flat_stdin() -> Iterator[str]:
     import itertools
-    return itertools.chain.from_iterable([i.split() for i in sys.stdin])
+    return itertools.chain.from_iterable((i.split() for i in sys.stdin))
 
 
 def main():
-    args = sys.argv[1:]
-    if len(args) == 0:
-        args = list(flat_stdin())
-    for arg in args:
-        print(convert_toms_str(arg))
+    args = (sys.argv[1:] or flat_stdin())
+    for x in (convert_toms_str(r) for r in args):
+        print(x)
 
 
 if __name__ == '__main__':
