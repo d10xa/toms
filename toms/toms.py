@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import re
@@ -44,6 +43,19 @@ def make_iso(sign: int, seconds: int, millis: int):
     dt = dt + delta
     dt = dt.replace(tzinfo=timezone.utc)
     return dt.isoformat()
+
+
+def replace_millis_str(s: str) -> str:
+    # min with leading zeroes 0000000000000 1970-01-01T00:00:00+00:00
+    # min 1000000000000 2001-09-09T01:46:40+00:00
+    # max 9999999999999 2286-11-20T17:46:39.999000+00:00
+    pattern = re.compile(r'\d+')
+    items = re.findall(pattern, s)
+    for i in items:
+        j = str(i)
+        if len(j) == 13:
+            s = s.replace(i, millis_to_iso(j))
+    return s
 
 
 def convert_toms_str(s: str) -> str:
